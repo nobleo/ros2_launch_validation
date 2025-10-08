@@ -14,12 +14,14 @@
         <xsd:element ref="group"/>
         <xsd:element ref="executable"/>
         <xsd:element ref="push_ros_namespace"/>
+        <xsd:element ref="push-ros-namespace"/>
         <xsd:element ref="set_parameter"/>
         <xsd:element ref="set_env"/>
         <xsd:element ref="unset_env"/>
         <xsd:element ref="log"/>
         <xsd:element ref="node_container"/>
         <xsd:element ref="load_composable_node"/>
+        <xsd:element ref="timer"/>
       </xsd:choice>
       <xsd:attribute name="version" type="xsd:string"/>
       <xsd:attribute name="deprecated" type="xsd:string"/>
@@ -46,6 +48,8 @@
       <xsd:attribute name="required" type="xsd:string"/>
       <xsd:attribute name="launch-prefix" type="xsd:string"/>
       <xsd:attribute name="cwd" type="xsd:string"/>
+      <xsd:attribute name="on_exit" type="xsd:string"/>
+      <xsd:attribute name="emulate_tty" type="xsd:string"/>
       <xsd:attribute name="if" type="xsd:string"/>
       <xsd:attribute name="unless" type="xsd:string"/>
     </xsd:complexType>
@@ -67,12 +71,22 @@
   <!-- Argument element -->
   <xsd:element name="arg">
     <xsd:complexType>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="choice"/>
+      </xsd:choice>
       <xsd:attribute name="name" type="xsd:string" use="required"/>
       <xsd:attribute name="default" type="xsd:string"/>
       <xsd:attribute name="value" type="xsd:string"/>
       <xsd:attribute name="description" type="xsd:string"/>
       <xsd:attribute name="if" type="xsd:string"/>
       <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Choice element (for arg enumerations) -->
+  <xsd:element name="choice">
+    <xsd:complexType>
+      <xsd:attribute name="value" type="xsd:string" use="required"/>
     </xsd:complexType>
   </xsd:element>
 
@@ -96,6 +110,7 @@
           <xsd:attribute name="value-sep" type="xsd:string"/>
           <xsd:attribute name="type" type="xsd:string"/>
           <xsd:attribute name="from" type="xsd:string"/>
+          <xsd:attribute name="allow_substs" type="xsd:string"/>
           <xsd:attribute name="if" type="xsd:string"/>
           <xsd:attribute name="unless" type="xsd:string"/>
         </xsd:extension>
@@ -133,11 +148,16 @@
         <xsd:element ref="let"/>
         <xsd:element ref="param"/>
         <xsd:element ref="remap"/>
+        <xsd:element ref="group"/>
         <xsd:element ref="push_ros_namespace"/>
+        <xsd:element ref="push-ros-namespace"/>
         <xsd:element ref="set_parameter"/>
         <xsd:element ref="executable"/>
+        <xsd:element ref="node_container"/>
+        <xsd:element ref="load_composable_node"/>
       </xsd:choice>
       <xsd:attribute name="scoped" type="xsd:string"/>
+      <xsd:attribute name="ns" type="xsd:string"/>
       <xsd:attribute name="if" type="xsd:string"/>
       <xsd:attribute name="unless" type="xsd:string"/>
     </xsd:complexType>
@@ -162,6 +182,21 @@
 
   <!-- Push ROS namespace element -->
   <xsd:element name="push_ros_namespace">
+    <xsd:complexType>
+      <xsd:attribute name="namespace" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Push ROS namespace element (hyphenated variant, not preferred: https://github.com/ros2/launch_ros/issues/142) -->
+  <xsd:element name="push-ros-namespace">
+    <xsd:annotation>
+      <xsd:documentation>
+        DEPRECATED: Use 'push_ros_namespace' instead (with underscores).
+        The hyphenated variant is not preferred. See: https://github.com/ros2/launch_ros/issues/142
+      </xsd:documentation>
+    </xsd:annotation>
     <xsd:complexType>
       <xsd:attribute name="namespace" type="xsd:string" use="required"/>
       <xsd:attribute name="if" type="xsd:string"/>
@@ -225,10 +260,30 @@
   <!-- Node container element (for composable nodes) -->
   <xsd:element name="node_container">
     <xsd:complexType>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="composable_node"/>
+        <xsd:element ref="load_composable_node"/>
+      </xsd:choice>
       <xsd:attribute name="pkg" type="xsd:string" use="required"/>
       <xsd:attribute name="exec" type="xsd:string" use="required"/>
       <xsd:attribute name="name" type="xsd:string" use="required"/>
       <xsd:attribute name="namespace" type="xsd:string"/>
+      <xsd:attribute name="output" type="xsd:string"/>
+      <xsd:attribute name="launch-prefix" type="xsd:string"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Timer element (for delayed actions) -->
+  <xsd:element name="timer">
+    <xsd:complexType>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="node"/>
+        <xsd:element ref="include"/>
+        <xsd:element ref="executable"/>
+      </xsd:choice>
+      <xsd:attribute name="period" type="xsd:string" use="required"/>
       <xsd:attribute name="if" type="xsd:string"/>
       <xsd:attribute name="unless" type="xsd:string"/>
     </xsd:complexType>
