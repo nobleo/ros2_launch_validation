@@ -16,6 +16,7 @@
         <xsd:element ref="push_ros_namespace"/>
         <xsd:element ref="push-ros-namespace"/>
         <xsd:element ref="set_parameter"/>
+        <xsd:element ref="set_remap"/>
         <xsd:element ref="set_env"/>
         <xsd:element ref="unset_env"/>
         <xsd:element ref="log"/>
@@ -61,6 +62,7 @@
       <xsd:choice minOccurs="0" maxOccurs="unbounded">
         <xsd:element ref="arg"/>
         <xsd:element ref="env"/>
+        <xsd:element ref="extra_arg"/>
       </xsd:choice>
       <xsd:attribute name="file" type="xsd:string" use="required"/>
       <xsd:attribute name="if" type="xsd:string"/>
@@ -152,6 +154,7 @@
         <xsd:element ref="push_ros_namespace"/>
         <xsd:element ref="push-ros-namespace"/>
         <xsd:element ref="set_parameter"/>
+        <xsd:element ref="set_remap"/>
         <xsd:element ref="executable"/>
         <xsd:element ref="node_container"/>
         <xsd:element ref="load_composable_node"/>
@@ -175,6 +178,7 @@
       <xsd:attribute name="launch-prefix" type="xsd:string"/>
       <xsd:attribute name="output" type="xsd:string"/>
       <xsd:attribute name="shell" type="xsd:string"/>
+      <xsd:attribute name="on_exit" type="xsd:string"/>
       <xsd:attribute name="if" type="xsd:string"/>
       <xsd:attribute name="unless" type="xsd:string"/>
     </xsd:complexType>
@@ -209,6 +213,16 @@
     <xsd:complexType>
       <xsd:attribute name="name" type="xsd:string" use="required"/>
       <xsd:attribute name="value" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Set remap element (scoped remap for group) -->
+  <xsd:element name="set_remap">
+    <xsd:complexType>
+      <xsd:attribute name="from" type="xsd:string" use="required"/>
+      <xsd:attribute name="to" type="xsd:string" use="required"/>
       <xsd:attribute name="if" type="xsd:string"/>
       <xsd:attribute name="unless" type="xsd:string"/>
     </xsd:complexType>
@@ -268,6 +282,8 @@
       <xsd:attribute name="exec" type="xsd:string" use="required"/>
       <xsd:attribute name="name" type="xsd:string" use="required"/>
       <xsd:attribute name="namespace" type="xsd:string"/>
+      <xsd:attribute name="args" type="xsd:string"/>
+      <xsd:attribute name="ros_args" type="xsd:string"/>
       <xsd:attribute name="output" type="xsd:string"/>
       <xsd:attribute name="launch-prefix" type="xsd:string"/>
       <xsd:attribute name="if" type="xsd:string"/>
@@ -309,6 +325,7 @@
         <xsd:element ref="remap"/>
         <xsd:element ref="ros_param"/>
         <xsd:element ref="env"/>
+        <xsd:element ref="extra_arg"/>
       </xsd:choice>
       <xsd:attribute name="pkg" type="xsd:string" use="required"/>
       <xsd:attribute name="plugin" type="xsd:string" use="required"/>
@@ -316,6 +333,14 @@
       <xsd:attribute name="namespace" type="xsd:string"/>
       <xsd:attribute name="if" type="xsd:string"/>
       <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Extra argument element (for composable nodes and includes) -->
+  <xsd:element name="extra_arg">
+    <xsd:complexType>
+      <xsd:attribute name="name" type="xsd:string" use="required"/>
+      <xsd:attribute name="value" type="xsd:string" use="required"/>
     </xsd:complexType>
   </xsd:element>
 
