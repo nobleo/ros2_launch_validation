@@ -16,13 +16,17 @@
         <xsd:element ref="push_ros_namespace"/>
         <xsd:element ref="push-ros-namespace"/>
         <xsd:element ref="set_parameter"/>
+        <xsd:element ref="set_parameters_from_file"/>
         <xsd:element ref="set_remap"/>
         <xsd:element ref="set_env"/>
         <xsd:element ref="unset_env"/>
+        <xsd:element ref="set_ros_log_dir"/>
+        <xsd:element ref="set_use_sim_time"/>
         <xsd:element ref="log"/>
         <xsd:element ref="node_container"/>
         <xsd:element ref="load_composable_node"/>
         <xsd:element ref="timer"/>
+        <xsd:element ref="ros_timer"/>
       </xsd:choice>
       <xsd:attribute name="version" type="xsd:string"/>
       <xsd:attribute name="deprecated" type="xsd:string"/>
@@ -42,7 +46,9 @@
       <xsd:attribute name="exec" type="xsd:string" use="required"/>
       <xsd:attribute name="name" type="xsd:string"/>
       <xsd:attribute name="namespace" type="xsd:string"/>
+      <xsd:attribute name="exec_name" type="xsd:string"/>
       <xsd:attribute name="args" type="xsd:string"/>
+      <xsd:attribute name="ros_args" type="xsd:string"/>
       <xsd:attribute name="output" type="xsd:string"/>
       <xsd:attribute name="respawn" type="xsd:string"/>
       <xsd:attribute name="respawn_delay" type="xsd:string"/>
@@ -154,10 +160,18 @@
         <xsd:element ref="push_ros_namespace"/>
         <xsd:element ref="push-ros-namespace"/>
         <xsd:element ref="set_parameter"/>
+        <xsd:element ref="set_parameters_from_file"/>
         <xsd:element ref="set_remap"/>
+        <xsd:element ref="set_env"/>
+        <xsd:element ref="unset_env"/>
+        <xsd:element ref="set_ros_log_dir"/>
+        <xsd:element ref="set_use_sim_time"/>
+        <xsd:element ref="log"/>
         <xsd:element ref="executable"/>
         <xsd:element ref="node_container"/>
         <xsd:element ref="load_composable_node"/>
+        <xsd:element ref="timer"/>
+        <xsd:element ref="ros_timer"/>
       </xsd:choice>
       <xsd:attribute name="scoped" type="xsd:string"/>
       <xsd:attribute name="ns" type="xsd:string"/>
@@ -212,6 +226,33 @@
   <xsd:element name="set_parameter">
     <xsd:complexType>
       <xsd:attribute name="name" type="xsd:string" use="required"/>
+      <xsd:attribute name="value" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Set parameters from file element -->
+  <xsd:element name="set_parameters_from_file">
+    <xsd:complexType>
+      <xsd:attribute name="filename" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Set ROS log directory element -->
+  <xsd:element name="set_ros_log_dir">
+    <xsd:complexType>
+      <xsd:attribute name="new_log_dir" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Set use_sim_time parameter element -->
+  <xsd:element name="set_use_sim_time">
+    <xsd:complexType>
       <xsd:attribute name="value" type="xsd:string" use="required"/>
       <xsd:attribute name="if" type="xsd:string"/>
       <xsd:attribute name="unless" type="xsd:string"/>
@@ -291,13 +332,29 @@
     </xsd:complexType>
   </xsd:element>
 
-  <!-- Timer element (for delayed actions) -->
+  <!-- Timer element (for delayed actions using wall clock time) -->
   <xsd:element name="timer">
     <xsd:complexType>
       <xsd:choice minOccurs="0" maxOccurs="unbounded">
         <xsd:element ref="node"/>
         <xsd:element ref="include"/>
         <xsd:element ref="executable"/>
+        <xsd:element ref="group"/>
+      </xsd:choice>
+      <xsd:attribute name="period" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- ROS Timer element (for delayed actions using ROS time) -->
+  <xsd:element name="ros_timer">
+    <xsd:complexType>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="node"/>
+        <xsd:element ref="include"/>
+        <xsd:element ref="executable"/>
+        <xsd:element ref="group"/>
       </xsd:choice>
       <xsd:attribute name="period" type="xsd:string" use="required"/>
       <xsd:attribute name="if" type="xsd:string"/>
