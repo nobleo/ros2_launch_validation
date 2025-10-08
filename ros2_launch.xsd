@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Root element -->
+  <xsd:element name="launch">
+    <xsd:complexType>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="node"/>
+        <xsd:element ref="include"/>
+        <xsd:element ref="arg"/>
+        <xsd:element ref="let"/>
+        <xsd:element ref="param"/>
+        <xsd:element ref="remap"/>
+        <xsd:element ref="group"/>
+        <xsd:element ref="executable"/>
+        <xsd:element ref="push_ros_namespace"/>
+        <xsd:element ref="set_parameter"/>
+        <xsd:element ref="set_env"/>
+        <xsd:element ref="unset_env"/>
+        <xsd:element ref="log"/>
+        <xsd:element ref="node_container"/>
+        <xsd:element ref="load_composable_node"/>
+      </xsd:choice>
+      <xsd:attribute name="version" type="xsd:string"/>
+      <xsd:attribute name="deprecated" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Node element -->
+  <xsd:element name="node">
+    <xsd:complexType>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="param"/>
+        <xsd:element ref="remap"/>
+        <xsd:element ref="ros_param"/>
+        <xsd:element ref="env"/>
+      </xsd:choice>
+      <xsd:attribute name="pkg" type="xsd:string" use="required"/>
+      <xsd:attribute name="exec" type="xsd:string" use="required"/>
+      <xsd:attribute name="name" type="xsd:string"/>
+      <xsd:attribute name="namespace" type="xsd:string"/>
+      <xsd:attribute name="args" type="xsd:string"/>
+      <xsd:attribute name="output" type="xsd:string"/>
+      <xsd:attribute name="respawn" type="xsd:string"/>
+      <xsd:attribute name="respawn_delay" type="xsd:string"/>
+      <xsd:attribute name="required" type="xsd:string"/>
+      <xsd:attribute name="launch-prefix" type="xsd:string"/>
+      <xsd:attribute name="cwd" type="xsd:string"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Include element -->
+  <xsd:element name="include">
+    <xsd:complexType>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="arg"/>
+        <xsd:element ref="env"/>
+      </xsd:choice>
+      <xsd:attribute name="file" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Argument element -->
+  <xsd:element name="arg">
+    <xsd:complexType>
+      <xsd:attribute name="name" type="xsd:string" use="required"/>
+      <xsd:attribute name="default" type="xsd:string"/>
+      <xsd:attribute name="value" type="xsd:string"/>
+      <xsd:attribute name="description" type="xsd:string"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Let element (local variable) -->
+  <xsd:element name="let">
+    <xsd:complexType>
+      <xsd:attribute name="name" type="xsd:string" use="required"/>
+      <xsd:attribute name="value" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Parameter element -->
+  <xsd:element name="param">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="name" type="xsd:string"/>
+          <xsd:attribute name="value" type="xsd:string"/>
+          <xsd:attribute name="value-sep" type="xsd:string"/>
+          <xsd:attribute name="type" type="xsd:string"/>
+          <xsd:attribute name="from" type="xsd:string"/>
+          <xsd:attribute name="if" type="xsd:string"/>
+          <xsd:attribute name="unless" type="xsd:string"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- ROS parameter element (for loading from YAML files) -->
+  <xsd:element name="ros_param">
+    <xsd:complexType>
+      <xsd:attribute name="file" type="xsd:string"/>
+      <xsd:attribute name="param" type="xsd:string"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Remap element -->
+  <xsd:element name="remap">
+    <xsd:complexType>
+      <xsd:attribute name="from" type="xsd:string" use="required"/>
+      <xsd:attribute name="to" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Group element -->
+  <xsd:element name="group">
+    <xsd:complexType>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="node"/>
+        <xsd:element ref="include"/>
+        <xsd:element ref="arg"/>
+        <xsd:element ref="let"/>
+        <xsd:element ref="param"/>
+        <xsd:element ref="remap"/>
+        <xsd:element ref="push_ros_namespace"/>
+        <xsd:element ref="set_parameter"/>
+        <xsd:element ref="executable"/>
+      </xsd:choice>
+      <xsd:attribute name="scoped" type="xsd:string"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Executable element -->
+  <xsd:element name="executable">
+    <xsd:complexType>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="env"/>
+      </xsd:choice>
+      <xsd:attribute name="cmd" type="xsd:string" use="required"/>
+      <xsd:attribute name="cwd" type="xsd:string"/>
+      <xsd:attribute name="name" type="xsd:string"/>
+      <xsd:attribute name="launch-prefix" type="xsd:string"/>
+      <xsd:attribute name="output" type="xsd:string"/>
+      <xsd:attribute name="shell" type="xsd:string"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Push ROS namespace element -->
+  <xsd:element name="push_ros_namespace">
+    <xsd:complexType>
+      <xsd:attribute name="namespace" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Set parameter element -->
+  <xsd:element name="set_parameter">
+    <xsd:complexType>
+      <xsd:attribute name="name" type="xsd:string" use="required"/>
+      <xsd:attribute name="value" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Set environment variable element -->
+  <xsd:element name="set_env">
+    <xsd:complexType>
+      <xsd:attribute name="name" type="xsd:string" use="required"/>
+      <xsd:attribute name="value" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Unset environment variable element -->
+  <xsd:element name="unset_env">
+    <xsd:complexType>
+      <xsd:attribute name="name" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Environment variable element (for node/executable) -->
+  <xsd:element name="env">
+    <xsd:complexType>
+      <xsd:attribute name="name" type="xsd:string" use="required"/>
+      <xsd:attribute name="value" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Log element -->
+  <xsd:element name="log">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="message" type="xsd:string"/>
+          <xsd:attribute name="level" type="xsd:string"/>
+          <xsd:attribute name="if" type="xsd:string"/>
+          <xsd:attribute name="unless" type="xsd:string"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Node container element (for composable nodes) -->
+  <xsd:element name="node_container">
+    <xsd:complexType>
+      <xsd:attribute name="pkg" type="xsd:string" use="required"/>
+      <xsd:attribute name="exec" type="xsd:string" use="required"/>
+      <xsd:attribute name="name" type="xsd:string" use="required"/>
+      <xsd:attribute name="namespace" type="xsd:string"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Load composable node element -->
+  <xsd:element name="load_composable_node">
+    <xsd:complexType>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="composable_node"/>
+      </xsd:choice>
+      <xsd:attribute name="target" type="xsd:string" use="required"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Composable node element -->
+  <xsd:element name="composable_node">
+    <xsd:complexType>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="param"/>
+        <xsd:element ref="remap"/>
+        <xsd:element ref="ros_param"/>
+        <xsd:element ref="env"/>
+      </xsd:choice>
+      <xsd:attribute name="pkg" type="xsd:string" use="required"/>
+      <xsd:attribute name="plugin" type="xsd:string" use="required"/>
+      <xsd:attribute name="name" type="xsd:string"/>
+      <xsd:attribute name="namespace" type="xsd:string"/>
+      <xsd:attribute name="if" type="xsd:string"/>
+      <xsd:attribute name="unless" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>
