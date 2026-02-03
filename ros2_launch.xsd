@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
+  <!-- This file is hosted (and can be edited) at: -->
+  <!-- https://github.com/nobleo/ros2_launch_validation -->
+
   <!-- Root element -->
   <xsd:element name="launch">
     <xsd:complexType>

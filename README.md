@@ -13,7 +13,7 @@ Start your launchfile like this:
 
 ```xml
 <?xml version="1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/nobleo/ros2_launch_validation/main/ros2_launch.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<?xml-model href="https://nobleo.github.io/ros2_launch_validation/ros2_launch.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 
 <launch>
 ```
@@ -23,6 +23,5 @@ Start your launchfile like this:
 Validate the launchfiles in your package:
 
 ```bash
-wget -O ros2_launch.xsd https://raw.githubusercontent.com/nobleo/ros2_launch_validation/main/ros2_launch.xsd
-xmllint --noout --schema ros2_launch.xsd **/*.launch.xml
+xmllint --noout --schema <(curl -s https://nobleo.github.io/ros2_launch_validation/ros2_launch.xsd) **/*.launch.xml
 ```
