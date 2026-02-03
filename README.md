@@ -25,3 +25,13 @@ Validate the launchfiles in your package:
 ```bash
 xmllint --noout --schema <(curl -s https://nobleo.github.io/ros2_launch_validation/ros2_launch.xsd) **/*.launch.xml
 ```
+
+## Credits
+
+<!-- markdownlint-disable MD033 -->
+<img src="https://nobleo-technology.nl/wp-content/uploads/2024/08/Nobleo_BG-paars_logo-wit-small.jpg" alt="Nobleo Logo" width="300"/>
+<!-- markdownlint-enable MD033 -->
+
+This schema is developed by Nobleo Autonomous Solutions B.V.
+
+Looking for paid support options? Contact us at [nobleo-technology.nl](https://nobleo-technology.nl).
