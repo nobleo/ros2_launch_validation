@@ -4,9 +4,43 @@
   <!-- This file is hosted (and can be edited) at: -->
   <!-- https://github.com/nobleo/ros2_launch_validation -->
 
-  <!-- String type that only allows whitelisted $() substitution commands. -->
-  <!-- See: https://docs.ros.org/en/rolling/p/launch/launch.substitutions.html -->
+  <!-- String type that only allows whitelisted $() substitution commands.     -->
+  <!-- NOTE: the pattern value cannot be split across lines because XML        -->
   <xsd:simpleType name="substitution_string">
+    <xsd:annotation>
+      <xsd:documentation>
+        Allows free-form strings, but any $() substitution must use one of the
+        following whitelisted commands (from launch and launch_ros packages).
+        See: https://docs.ros.org/en/rolling/p/launch/launch.substitutions.html
+        Valid commands:
+          all
+          and
+          anon
+          any
+          command
+          dirname
+          env
+          equals
+          eval
+          exec-in-pkg
+          file-content
+          filename
+          find-exec
+          find-pkg-prefix
+          find-pkg-share
+          for-var
+          if
+          index
+          launch_log_dir
+          log_dir
+          not
+          not-equals
+          or
+          param
+          string-join
+          var
+      </xsd:documentation>
+    </xsd:annotation>
     <xsd:restriction base="xsd:string">
       <xsd:pattern value="([^$]|$[^(]|$\((all|and|anon|any|command|dirname|env|equals|eval|exec-in-pkg|file-content|filename|find-exec|find-pkg-prefix|find-pkg-share|for-var|if|index|launch_log_dir|log_dir|not-equals|not|or|param|string-join|var)[ )])*$?"/>
     </xsd:restriction>
