@@ -4,6 +4,14 @@
   <!-- This file is hosted (and can be edited) at: -->
   <!-- https://github.com/nobleo/ros2_launch_validation -->
 
+  <!-- String type that only allows whitelisted $() substitution commands. -->
+  <!-- See: https://docs.ros.org/en/rolling/p/launch/launch.substitutions.html -->
+  <xsd:simpleType name="substitution_string">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([^$]|$[^(]|$\((all|and|anon|any|command|dirname|env|equals|eval|exec-in-pkg|file-content|filename|find-exec|find-pkg-prefix|find-pkg-share|for-var|if|index|launch_log_dir|log_dir|not-equals|not|or|param|string-join|var)[ )])*$?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
   <!-- Root element -->
   <xsd:element name="launch">
     <xsd:complexType>
@@ -31,8 +39,8 @@
         <xsd:element ref="timer"/>
         <xsd:element ref="ros_timer"/>
       </xsd:choice>
-      <xsd:attribute name="version" type="xsd:string"/>
-      <xsd:attribute name="deprecated" type="xsd:string"/>
+      <xsd:attribute name="version" type="substitution_string"/>
+      <xsd:attribute name="deprecated" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
@@ -45,23 +53,23 @@
         <xsd:element ref="ros_param"/>
         <xsd:element ref="env"/>
       </xsd:choice>
-      <xsd:attribute name="pkg" type="xsd:string" use="required"/>
-      <xsd:attribute name="exec" type="xsd:string" use="required"/>
-      <xsd:attribute name="name" type="xsd:string"/>
-      <xsd:attribute name="namespace" type="xsd:string"/>
-      <xsd:attribute name="exec_name" type="xsd:string"/>
-      <xsd:attribute name="args" type="xsd:string"/>
-      <xsd:attribute name="ros_args" type="xsd:string"/>
-      <xsd:attribute name="output" type="xsd:string"/>
-      <xsd:attribute name="respawn" type="xsd:string"/>
-      <xsd:attribute name="respawn_delay" type="xsd:string"/>
-      <xsd:attribute name="required" type="xsd:string"/>
-      <xsd:attribute name="launch-prefix" type="xsd:string"/>
-      <xsd:attribute name="cwd" type="xsd:string"/>
-      <xsd:attribute name="on_exit" type="xsd:string"/>
-      <xsd:attribute name="emulate_tty" type="xsd:string"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="pkg" type="substitution_string" use="required"/>
+      <xsd:attribute name="exec" type="substitution_string" use="required"/>
+      <xsd:attribute name="name" type="substitution_string"/>
+      <xsd:attribute name="namespace" type="substitution_string"/>
+      <xsd:attribute name="exec_name" type="substitution_string"/>
+      <xsd:attribute name="args" type="substitution_string"/>
+      <xsd:attribute name="ros_args" type="substitution_string"/>
+      <xsd:attribute name="output" type="substitution_string"/>
+      <xsd:attribute name="respawn" type="substitution_string"/>
+      <xsd:attribute name="respawn_delay" type="substitution_string"/>
+      <xsd:attribute name="required" type="substitution_string"/>
+      <xsd:attribute name="launch-prefix" type="substitution_string"/>
+      <xsd:attribute name="cwd" type="substitution_string"/>
+      <xsd:attribute name="on_exit" type="substitution_string"/>
+      <xsd:attribute name="emulate_tty" type="substitution_string"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
@@ -73,9 +81,9 @@
         <xsd:element ref="env"/>
         <xsd:element ref="extra_arg"/>
       </xsd:choice>
-      <xsd:attribute name="file" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="file" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
@@ -85,29 +93,29 @@
       <xsd:choice minOccurs="0" maxOccurs="unbounded">
         <xsd:element ref="choice"/>
       </xsd:choice>
-      <xsd:attribute name="name" type="xsd:string" use="required"/>
-      <xsd:attribute name="default" type="xsd:string"/>
-      <xsd:attribute name="value" type="xsd:string"/>
-      <xsd:attribute name="description" type="xsd:string"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="name" type="substitution_string" use="required"/>
+      <xsd:attribute name="default" type="substitution_string"/>
+      <xsd:attribute name="value" type="substitution_string"/>
+      <xsd:attribute name="description" type="substitution_string"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
   <!-- Choice element (for arg enumerations) -->
   <xsd:element name="choice">
     <xsd:complexType>
-      <xsd:attribute name="value" type="xsd:string" use="required"/>
+      <xsd:attribute name="value" type="substitution_string" use="required"/>
     </xsd:complexType>
   </xsd:element>
 
   <!-- Let element (local variable) -->
   <xsd:element name="let">
     <xsd:complexType>
-      <xsd:attribute name="name" type="xsd:string" use="required"/>
-      <xsd:attribute name="value" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="name" type="substitution_string" use="required"/>
+      <xsd:attribute name="value" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
@@ -115,15 +123,15 @@
   <xsd:element name="param">
     <xsd:complexType>
       <xsd:simpleContent>
-        <xsd:extension base="xsd:string">
-          <xsd:attribute name="name" type="xsd:string"/>
-          <xsd:attribute name="value" type="xsd:string"/>
-          <xsd:attribute name="value-sep" type="xsd:string"/>
-          <xsd:attribute name="type" type="xsd:string"/>
-          <xsd:attribute name="from" type="xsd:string"/>
-          <xsd:attribute name="allow_substs" type="xsd:string"/>
-          <xsd:attribute name="if" type="xsd:string"/>
-          <xsd:attribute name="unless" type="xsd:string"/>
+        <xsd:extension base="substitution_string">
+          <xsd:attribute name="name" type="substitution_string"/>
+          <xsd:attribute name="value" type="substitution_string"/>
+          <xsd:attribute name="value-sep" type="substitution_string"/>
+          <xsd:attribute name="type" type="substitution_string"/>
+          <xsd:attribute name="from" type="substitution_string"/>
+          <xsd:attribute name="allow_substs" type="substitution_string"/>
+          <xsd:attribute name="if" type="substitution_string"/>
+          <xsd:attribute name="unless" type="substitution_string"/>
         </xsd:extension>
       </xsd:simpleContent>
     </xsd:complexType>
@@ -132,20 +140,20 @@
   <!-- ROS parameter element (for loading from YAML files) -->
   <xsd:element name="ros_param">
     <xsd:complexType>
-      <xsd:attribute name="file" type="xsd:string"/>
-      <xsd:attribute name="param" type="xsd:string"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="file" type="substitution_string"/>
+      <xsd:attribute name="param" type="substitution_string"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
   <!-- Remap element -->
   <xsd:element name="remap">
     <xsd:complexType>
-      <xsd:attribute name="from" type="xsd:string" use="required"/>
-      <xsd:attribute name="to" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="from" type="substitution_string" use="required"/>
+      <xsd:attribute name="to" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
@@ -176,10 +184,10 @@
         <xsd:element ref="timer"/>
         <xsd:element ref="ros_timer"/>
       </xsd:choice>
-      <xsd:attribute name="scoped" type="xsd:string"/>
-      <xsd:attribute name="ns" type="xsd:string"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="scoped" type="substitution_string"/>
+      <xsd:attribute name="ns" type="substitution_string"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
@@ -189,24 +197,24 @@
       <xsd:choice minOccurs="0" maxOccurs="unbounded">
         <xsd:element ref="env"/>
       </xsd:choice>
-      <xsd:attribute name="cmd" type="xsd:string" use="required"/>
-      <xsd:attribute name="cwd" type="xsd:string"/>
-      <xsd:attribute name="name" type="xsd:string"/>
-      <xsd:attribute name="launch-prefix" type="xsd:string"/>
-      <xsd:attribute name="output" type="xsd:string"/>
-      <xsd:attribute name="shell" type="xsd:string"/>
-      <xsd:attribute name="on_exit" type="xsd:string"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="cmd" type="substitution_string" use="required"/>
+      <xsd:attribute name="cwd" type="substitution_string"/>
+      <xsd:attribute name="name" type="substitution_string"/>
+      <xsd:attribute name="launch-prefix" type="substitution_string"/>
+      <xsd:attribute name="output" type="substitution_string"/>
+      <xsd:attribute name="shell" type="substitution_string"/>
+      <xsd:attribute name="on_exit" type="substitution_string"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
   <!-- Push ROS namespace element -->
   <xsd:element name="push_ros_namespace">
     <xsd:complexType>
-      <xsd:attribute name="namespace" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="namespace" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
@@ -219,85 +227,85 @@
       </xsd:documentation>
     </xsd:annotation>
     <xsd:complexType>
-      <xsd:attribute name="namespace" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="namespace" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
   <!-- Set parameter element -->
   <xsd:element name="set_parameter">
     <xsd:complexType>
-      <xsd:attribute name="name" type="xsd:string" use="required"/>
-      <xsd:attribute name="value" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="name" type="substitution_string" use="required"/>
+      <xsd:attribute name="value" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
   <!-- Set parameters from file element -->
   <xsd:element name="set_parameters_from_file">
     <xsd:complexType>
-      <xsd:attribute name="filename" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="filename" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
   <!-- Set ROS log directory element -->
   <xsd:element name="set_ros_log_dir">
     <xsd:complexType>
-      <xsd:attribute name="new_log_dir" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="new_log_dir" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
   <!-- Set use_sim_time parameter element -->
   <xsd:element name="set_use_sim_time">
     <xsd:complexType>
-      <xsd:attribute name="value" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="value" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
   <!-- Set remap element (scoped remap for group) -->
   <xsd:element name="set_remap">
     <xsd:complexType>
-      <xsd:attribute name="from" type="xsd:string" use="required"/>
-      <xsd:attribute name="to" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="from" type="substitution_string" use="required"/>
+      <xsd:attribute name="to" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
   <!-- Set environment variable element -->
   <xsd:element name="set_env">
     <xsd:complexType>
-      <xsd:attribute name="name" type="xsd:string" use="required"/>
-      <xsd:attribute name="value" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="name" type="substitution_string" use="required"/>
+      <xsd:attribute name="value" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
   <!-- Unset environment variable element -->
   <xsd:element name="unset_env">
     <xsd:complexType>
-      <xsd:attribute name="name" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="name" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
   <!-- Environment variable element (for node/executable) -->
   <xsd:element name="env">
     <xsd:complexType>
-      <xsd:attribute name="name" type="xsd:string" use="required"/>
-      <xsd:attribute name="value" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="name" type="substitution_string" use="required"/>
+      <xsd:attribute name="value" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
@@ -305,11 +313,11 @@
   <xsd:element name="log">
     <xsd:complexType>
       <xsd:simpleContent>
-        <xsd:extension base="xsd:string">
-          <xsd:attribute name="message" type="xsd:string"/>
-          <xsd:attribute name="level" type="xsd:string"/>
-          <xsd:attribute name="if" type="xsd:string"/>
-          <xsd:attribute name="unless" type="xsd:string"/>
+        <xsd:extension base="substitution_string">
+          <xsd:attribute name="message" type="substitution_string"/>
+          <xsd:attribute name="level" type="substitution_string"/>
+          <xsd:attribute name="if" type="substitution_string"/>
+          <xsd:attribute name="unless" type="substitution_string"/>
         </xsd:extension>
       </xsd:simpleContent>
     </xsd:complexType>
@@ -322,16 +330,16 @@
         <xsd:element ref="composable_node"/>
         <xsd:element ref="load_composable_node"/>
       </xsd:choice>
-      <xsd:attribute name="pkg" type="xsd:string" use="required"/>
-      <xsd:attribute name="exec" type="xsd:string" use="required"/>
-      <xsd:attribute name="name" type="xsd:string" use="required"/>
-      <xsd:attribute name="namespace" type="xsd:string"/>
-      <xsd:attribute name="args" type="xsd:string"/>
-      <xsd:attribute name="ros_args" type="xsd:string"/>
-      <xsd:attribute name="output" type="xsd:string"/>
-      <xsd:attribute name="launch-prefix" type="xsd:string"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="pkg" type="substitution_string" use="required"/>
+      <xsd:attribute name="exec" type="substitution_string" use="required"/>
+      <xsd:attribute name="name" type="substitution_string" use="required"/>
+      <xsd:attribute name="namespace" type="substitution_string"/>
+      <xsd:attribute name="args" type="substitution_string"/>
+      <xsd:attribute name="ros_args" type="substitution_string"/>
+      <xsd:attribute name="output" type="substitution_string"/>
+      <xsd:attribute name="launch-prefix" type="substitution_string"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
@@ -344,9 +352,9 @@
         <xsd:element ref="executable"/>
         <xsd:element ref="group"/>
       </xsd:choice>
-      <xsd:attribute name="period" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="period" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
@@ -359,9 +367,9 @@
         <xsd:element ref="executable"/>
         <xsd:element ref="group"/>
       </xsd:choice>
-      <xsd:attribute name="period" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="period" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
@@ -371,9 +379,9 @@
       <xsd:choice minOccurs="0" maxOccurs="unbounded">
         <xsd:element ref="composable_node"/>
       </xsd:choice>
-      <xsd:attribute name="target" type="xsd:string" use="required"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="target" type="substitution_string" use="required"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
@@ -387,20 +395,20 @@
         <xsd:element ref="env"/>
         <xsd:element ref="extra_arg"/>
       </xsd:choice>
-      <xsd:attribute name="pkg" type="xsd:string" use="required"/>
-      <xsd:attribute name="plugin" type="xsd:string" use="required"/>
-      <xsd:attribute name="name" type="xsd:string"/>
-      <xsd:attribute name="namespace" type="xsd:string"/>
-      <xsd:attribute name="if" type="xsd:string"/>
-      <xsd:attribute name="unless" type="xsd:string"/>
+      <xsd:attribute name="pkg" type="substitution_string" use="required"/>
+      <xsd:attribute name="plugin" type="substitution_string" use="required"/>
+      <xsd:attribute name="name" type="substitution_string"/>
+      <xsd:attribute name="namespace" type="substitution_string"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
   <!-- Extra argument element (for composable nodes and includes) -->
   <xsd:element name="extra_arg">
     <xsd:complexType>
-      <xsd:attribute name="name" type="xsd:string" use="required"/>
-      <xsd:attribute name="value" type="xsd:string" use="required"/>
+      <xsd:attribute name="name" type="substitution_string" use="required"/>
+      <xsd:attribute name="value" type="substitution_string" use="required"/>
     </xsd:complexType>
   </xsd:element>
 
