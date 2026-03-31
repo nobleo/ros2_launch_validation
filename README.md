@@ -26,6 +26,17 @@ Validate the launchfiles in your package:
 xmllint --noout --schema <(curl -s https://nobleo.github.io/ros2_launch_validation/ros2_launch.xsd) **/*.launch.xml
 ```
 
+### Use with pre-commit:
+To validate XML schema's automatically, add this to your `.pre-commit-config.yaml`:
+
+```yaml
+  - repo: https://bitbucket.org/nobleo/nobleo-pre-commit
+    rev: 26.3.0
+    hooks:
+      - id: launch-depends
+      - id: xml-schema
+```
+
 ## Credits
 
 <!-- markdownlint-disable MD033 -->
