@@ -114,6 +114,7 @@
         <xsd:element ref="arg"/>
         <xsd:element ref="env"/>
         <xsd:element ref="extra_arg"/>
+        <xsd:element ref="let"/>
       </xsd:choice>
       <xsd:attribute name="file" type="substitution_string" use="required"/>
       <xsd:attribute name="if" type="substitution_string"/>
