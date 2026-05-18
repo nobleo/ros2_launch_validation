@@ -97,7 +97,6 @@
       <xsd:attribute name="output" type="substitution_string"/>
       <xsd:attribute name="respawn" type="substitution_string"/>
       <xsd:attribute name="respawn_delay" type="substitution_string"/>
-      <xsd:attribute name="required" type="substitution_string"/>
       <xsd:attribute name="launch-prefix" type="substitution_string"/>
       <xsd:attribute name="cwd" type="substitution_string"/>
       <xsd:attribute name="on_exit" type="substitution_string"/>
