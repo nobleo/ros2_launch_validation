@@ -219,7 +219,6 @@
         <xsd:element ref="ros_timer"/>
       </xsd:choice>
       <xsd:attribute name="scoped" type="substitution_string"/>
-      <xsd:attribute name="ns" type="substitution_string"/>
       <xsd:attribute name="if" type="substitution_string"/>
       <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
