@@ -46,33 +46,38 @@
     </xsd:restriction>
   </xsd:simpleType>
 
+  <!-- Group of valid choices for launch elements -->
+  <xsd:group name="launchElements">
+    <xsd:choice>
+      <xsd:element ref="node"/>
+      <xsd:element ref="include"/>
+      <xsd:element ref="arg"/>
+      <xsd:element ref="let"/>
+      <xsd:element ref="param"/>
+      <xsd:element ref="remap"/>
+      <xsd:element ref="group"/>
+      <xsd:element ref="executable"/>
+      <xsd:element ref="push_ros_namespace"/>
+      <xsd:element ref="push-ros-namespace"/>
+      <xsd:element ref="set_parameter"/>
+      <xsd:element ref="set_parameters_from_file"/>
+      <xsd:element ref="set_remap"/>
+      <xsd:element ref="set_env"/>
+      <xsd:element ref="unset_env"/>
+      <xsd:element ref="set_ros_log_dir"/>
+      <xsd:element ref="set_use_sim_time"/>
+      <xsd:element ref="log"/>
+      <xsd:element ref="node_container"/>
+      <xsd:element ref="load_composable_node"/>
+      <xsd:element ref="timer"/>
+      <xsd:element ref="ros_timer"/>
+    </xsd:choice>
+  </xsd:group>
+
   <!-- Root element -->
   <xsd:element name="launch">
     <xsd:complexType>
-      <xsd:choice minOccurs="0" maxOccurs="unbounded">
-        <xsd:element ref="node"/>
-        <xsd:element ref="include"/>
-        <xsd:element ref="arg"/>
-        <xsd:element ref="let"/>
-        <xsd:element ref="param"/>
-        <xsd:element ref="remap"/>
-        <xsd:element ref="group"/>
-        <xsd:element ref="executable"/>
-        <xsd:element ref="push_ros_namespace"/>
-        <xsd:element ref="push-ros-namespace"/>
-        <xsd:element ref="set_parameter"/>
-        <xsd:element ref="set_parameters_from_file"/>
-        <xsd:element ref="set_remap"/>
-        <xsd:element ref="set_env"/>
-        <xsd:element ref="unset_env"/>
-        <xsd:element ref="set_ros_log_dir"/>
-        <xsd:element ref="set_use_sim_time"/>
-        <xsd:element ref="log"/>
-        <xsd:element ref="node_container"/>
-        <xsd:element ref="load_composable_node"/>
-        <xsd:element ref="timer"/>
-        <xsd:element ref="ros_timer"/>
-      </xsd:choice>
+      <xsd:group ref="launchElements" minOccurs="0" maxOccurs="unbounded"/>
       <xsd:attribute name="version" type="substitution_string"/>
       <xsd:attribute name="deprecated" type="substitution_string"/>
     </xsd:complexType>
@@ -194,30 +199,7 @@
   <!-- Group element -->
   <xsd:element name="group">
     <xsd:complexType>
-      <xsd:choice minOccurs="0" maxOccurs="unbounded">
-        <xsd:element ref="node"/>
-        <xsd:element ref="include"/>
-        <xsd:element ref="arg"/>
-        <xsd:element ref="let"/>
-        <xsd:element ref="param"/>
-        <xsd:element ref="remap"/>
-        <xsd:element ref="group"/>
-        <xsd:element ref="push_ros_namespace"/>
-        <xsd:element ref="push-ros-namespace"/>
-        <xsd:element ref="set_parameter"/>
-        <xsd:element ref="set_parameters_from_file"/>
-        <xsd:element ref="set_remap"/>
-        <xsd:element ref="set_env"/>
-        <xsd:element ref="unset_env"/>
-        <xsd:element ref="set_ros_log_dir"/>
-        <xsd:element ref="set_use_sim_time"/>
-        <xsd:element ref="log"/>
-        <xsd:element ref="executable"/>
-        <xsd:element ref="node_container"/>
-        <xsd:element ref="load_composable_node"/>
-        <xsd:element ref="timer"/>
-        <xsd:element ref="ros_timer"/>
-      </xsd:choice>
+      <xsd:group ref="launchElements" minOccurs="0" maxOccurs="unbounded"/>
       <xsd:attribute name="scoped" type="substitution_string"/>
       <xsd:attribute name="if" type="substitution_string"/>
       <xsd:attribute name="unless" type="substitution_string"/>
