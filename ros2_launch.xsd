@@ -200,10 +200,22 @@
   <!-- Group element -->
   <xsd:element name="group">
     <xsd:complexType>
-      <xsd:group ref="launchElements" minOccurs="0" maxOccurs="unbounded"/>
-      <xsd:attribute name="scoped" type="substitution_string"/>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="keep"/>
+        <xsd:group ref="launchElements" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:choice>
+      <xsd:attribute name="scoped" type="xsd:boolean" default="true"/>
+      <xsd:attribute name="forwarding" type="xsd:boolean" default="true"/>
       <xsd:attribute name="if" type="substitution_string"/>
       <xsd:attribute name="unless" type="substitution_string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Group/Reset Keep element -->
+  <xsd:element name="keep">
+    <xsd:complexType>
+      <xsd:attribute name="name" type="substitution_string" use="required"/>
+      <xsd:attribute name="value" type="substitution_string" use="required"/>
     </xsd:complexType>
   </xsd:element>
 
