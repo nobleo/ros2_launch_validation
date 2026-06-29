@@ -18,6 +18,16 @@ Start your launchfile like this:
 <launch>
 ```
 
+For launch frontend extensions, use an extension schema instead of the base schema.
+For example, `ros_gz_bridge` launch files can use:
+
+```xml
+<?xml version="1.0"?>
+<?xml-model href="https://nobleo.github.io/ros2_launch_validation/ros2_launch_ros_gz_bridge.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<launch>
+```
+
 ### Command-line validation
 
 Validate the launchfiles in your package:

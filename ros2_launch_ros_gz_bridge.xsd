@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <!-- All elements from ros2_launch.xsd are still valid of course -->
+  <xsd:redefine schemaLocation="ros2_launch.xsd">
+    <xsd:group name="launchElements">
+      <xsd:choice>
+        <xsd:group ref="launchElements"/>
+        <xsd:element ref="ros_gz_bridge"/>
+      </xsd:choice>
+    </xsd:group>
+  </xsd:redefine>
+
+  <!-- ros_gz_bridge element -->
+  <xsd:element name="ros_gz_bridge">
+    <xsd:complexType>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="param"/>
+        <xsd:element ref="topic"/>
+        <xsd:element ref="service"/>
+      </xsd:choice>
+      <xsd:attribute name="bridge_name" type="substitution_string" use="required"/>
+      <xsd:attribute name="config_file" type="substitution_string"/>
+      <xsd:attribute name="container_name" type="substitution_string"/>
+      <xsd:attribute name="create_own_container" type="substitution_string"/>
+      <xsd:attribute name="namespace" type="substitution_string"/>
+      <xsd:attribute name="use_composition" type="substitution_string"/>
+      <xsd:attribute name="use_respawn" type="substitution_string"/>
+      <xsd:attribute name="log_level" type="substitution_string"/>
+      <xsd:attribute name="bridge_params" type="substitution_string"/>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- ros_gz_bridge topic bridge element -->
+  <xsd:element name="topic">
+    <xsd:complexType>
+      <xsd:attribute name="ros_topic_name" type="substitution_string" use="required"/>
+      <xsd:attribute name="ros_type_name" type="substitution_string" use="required"/>
+      <xsd:attribute name="gz_topic_name" type="substitution_string" use="required"/>
+      <xsd:attribute name="gz_type_name" type="substitution_string" use="required"/>
+      <xsd:attribute name="direction" type="substitution_string"/>
+      <xsd:attribute name="lazy" type="substitution_string"/>
+      <xsd:attribute name="publisher_queue" type="substitution_string"/>
+      <xsd:attribute name="subscriber_queue" type="substitution_string"/>
+      <xsd:attribute name="publisher_queue_size" type="substitution_string"/>
+      <xsd:attribute name="subscriber_queue_size" type="substitution_string"/>
+      <xsd:attribute name="qos_profile" type="substitution_string"/>
+      <xsd:attribute name="frame_id" type="substitution_string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- ros_gz_bridge service bridge element -->
+  <xsd:element name="service">
+    <xsd:complexType>
+      <xsd:attribute name="service_name" type="substitution_string" use="required"/>
+      <xsd:attribute name="ros_type_name" type="substitution_string" use="required"/>
+      <xsd:attribute name="gz_req_type_name" type="substitution_string" use="required"/>
+      <xsd:attribute name="gz_rep_type_name" type="substitution_string" use="required"/>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>
