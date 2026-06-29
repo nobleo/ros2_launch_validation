@@ -30,8 +30,8 @@ xmllint --noout --schema <(curl -s https://nobleo.github.io/ros2_launch_validati
 To validate XML schema's automatically, add this to your `.pre-commit-config.yaml`:
 
 ```yaml
-  - repo: https://bitbucket.org/nobleo/nobleo-pre-commit
-    rev: 26.3.0
+  - repo: https://github.com/nobleo/nobleo-pre-commit
+    rev: 26.6.1
     hooks:
       - id: launch-depends
       - id: xml-schema
