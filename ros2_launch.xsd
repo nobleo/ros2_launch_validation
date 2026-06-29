@@ -249,8 +249,24 @@
         <xsd:element ref="keep"/>
         <xsd:group ref="launchElements" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:choice>
-      <xsd:attribute name="scoped" type="launch_bool" default="true"/>
-      <xsd:attribute name="forwarding" type="launch_bool" default="true"/>
+      <xsd:attribute name="scoped" type="launch_bool">
+        <xsd:annotation>
+          <xsd:documentation>
+            When true, changes to launch configurations and environment variables are limited to the scope of actions in the group action.
+            Otherwise, the changes will persist outside of the scope of this group action.
+            Defaults to 'true'
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="forwarding" type="launch_bool">
+        <xsd:annotation>
+          <xsd:documentation>
+            When true, all existing launch configurations and environment variables will be available in the scoped context.
+            Otherwise, the values will be removed in this context.
+            Defaults to 'true'.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
       <xsd:attribute name="if" type="substitution_string"/>
       <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
