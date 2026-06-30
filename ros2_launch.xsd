@@ -402,13 +402,17 @@
   <!-- Timer element (for delayed actions using wall clock time) -->
   <xsd:element name="timer">
     <xsd:complexType>
-      <xsd:choice minOccurs="0" maxOccurs="unbounded">
-        <xsd:element ref="node"/>
-        <xsd:element ref="include"/>
-        <xsd:element ref="executable"/>
-        <xsd:element ref="group"/>
-      </xsd:choice>
+      <xsd:group ref="launchElements" minOccurs="0" maxOccurs="unbounded"/>
       <xsd:attribute name="period" type="substitution_string" use="required"/>
+      <xsd:attribute name="cancel_on_shutdown" type="substitution_string">
+        <xsd:annotation>
+          <xsd:documentation>
+            When 'true', the timer is cancel when launch receives a 'ShutdownEvent' (send by canceling `ros2launch` or the 'shutdown' action).
+            Otherwise, the timer will keep the process alive and execute its actions regardless of cancelation (with a cancelled context).
+            Defaults to 'true'
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
       <xsd:attribute name="if" type="substitution_string"/>
       <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
@@ -417,13 +421,17 @@
   <!-- ROS Timer element (for delayed actions using ROS time) -->
   <xsd:element name="ros_timer">
     <xsd:complexType>
-      <xsd:choice minOccurs="0" maxOccurs="unbounded">
-        <xsd:element ref="node"/>
-        <xsd:element ref="include"/>
-        <xsd:element ref="executable"/>
-        <xsd:element ref="group"/>
-      </xsd:choice>
+      <xsd:group ref="launchElements" minOccurs="0" maxOccurs="unbounded"/>
       <xsd:attribute name="period" type="substitution_string" use="required"/>
+      <xsd:attribute name="cancel_on_shutdown" type="substitution_string">
+        <xsd:annotation>
+          <xsd:documentation>
+            When 'true', the ROS timer is cancel when launch receives a 'ShutdownEvent' (send by canceling `ros2launch` or the 'shutdown' action).
+            Otherwise, the ROS timer will keep the process alive and execute its actions regardless of cancelation (with a cancelled context).
+            Defaults to 'true'
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
       <xsd:attribute name="if" type="substitution_string"/>
       <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
