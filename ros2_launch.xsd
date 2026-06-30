@@ -50,45 +50,11 @@
   <xsd:simpleType name="launch_bool">
     <xsd:annotation>
       <xsd:documentation>
-        Launch boolean type
-        Valid options:
-          Truthy: [True, true, 1]
-          Falsy: [False, false, 0]
+        Boolean-like string accepted by launch YAML coercion
       </xsd:documentation>
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
-      <!-- Truthy values -->
-      <xsd:enumeration value="True">
-        <xsd:annotation>
-          <xsd:documentation>Truthy value</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="true">
-        <xsd:annotation>
-          <xsd:documentation>Truthy value</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="1">
-        <xsd:annotation>
-          <xsd:documentation>Truthy value</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <!-- Falsy values -->
-      <xsd:enumeration value="False">
-        <xsd:annotation>
-          <xsd:documentation>Falsy value</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="false">
-        <xsd:annotation>
-          <xsd:documentation>Falsy value</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="0">
-        <xsd:annotation>
-          <xsd:documentation>Falsy value</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
+      <xsd:pattern value="(1|0|y|Y|yes|Yes|YES|n|N|no|No|NO|true|True|TRUE|false|False|FALSE|on|On|ON|off|Off|OFF)"/>
     </xsd:restriction>
   </xsd:simpleType>
 
