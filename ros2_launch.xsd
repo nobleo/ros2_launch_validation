@@ -83,6 +83,7 @@
       <xsd:element ref="load_composable_node"/>
       <xsd:element ref="timer"/>
       <xsd:element ref="ros_timer"/>
+      <xsd:element ref="shutdown"/>
     </xsd:choice>
   </xsd:group>
 
@@ -473,6 +474,26 @@
     <xsd:complexType>
       <xsd:attribute name="name" type="substitution_string" use="required"/>
       <xsd:attribute name="value" type="substitution_string" use="required"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Shutdown action -->
+  <xsd:element name="shutdown">
+    <xsd:annotation>
+      <xsd:documentation>
+        Shuts down a launched system by emitting a Shutdown event
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:attribute name="reason" type="substitution_string">
+        <xsd:annotation>
+          <xsd:documentation>
+            Optional reason for the shut down
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="if" type="substitution_string"/>
+      <xsd:attribute name="unless" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
