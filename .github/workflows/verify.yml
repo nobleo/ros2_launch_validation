@@ -1,0 +1,22 @@
+---
+name: Verify Schema Against Autoware Universe
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install just
+        uses: extractions/setup-just@v3
+
+      - name: Install xmllint
+        run: sudo apt-get update && sudo apt-get install -y libxml2-utils
+
+      - name: Verify schema
+        run: just verify

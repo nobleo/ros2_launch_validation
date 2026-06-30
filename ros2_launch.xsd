@@ -145,6 +145,7 @@
   <xsd:element name="choice">
     <xsd:complexType>
       <xsd:attribute name="value" type="substitution_string" use="required"/>
+      <xsd:attribute name="description" type="substitution_string"/>
     </xsd:complexType>
   </xsd:element>
 
