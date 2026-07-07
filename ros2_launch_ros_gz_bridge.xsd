@@ -2,7 +2,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
   <!-- All elements from ros2_launch.xsd are still valid of course -->
-  <xsd:redefine schemaLocation="ros2_launch.xsd">
+  <xsd:redefine schemaLocation="https://nobleo.github.io/ros2_launch_validation/ros2_launch.xsd">
     <xsd:group name="launchElements">
       <xsd:choice>
         <xsd:group ref="launchElements"/>
