@@ -84,6 +84,7 @@
       <xsd:element ref="timer"/>
       <xsd:element ref="ros_timer"/>
       <xsd:element ref="shutdown"/>
+      <xsd:element ref="for_each"/>
     </xsd:choice>
   </xsd:group>
 
@@ -494,6 +495,25 @@
       </xsd:attribute>
       <xsd:attribute name="if" type="substitution_string"/>
       <xsd:attribute name="unless" type="substitution_string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+    <!-- for_each action -->
+  <xsd:element name="for_each">
+    <xsd:annotation>
+      <xsd:documentation>
+        Action that iterates through sets of input values and uses them to instantiate entities.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:group ref="launchElements" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:attribute name="values" type="substitution_string">
+        <xsd:annotation>
+          <xsd:documentation>
+            The sets of inputs values to iterate over, provided as a semicolon-separated list of string YAML structures (e.g., flow style YAML strings separated by semicolons)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
     </xsd:complexType>
   </xsd:element>
 
