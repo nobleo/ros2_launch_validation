@@ -410,7 +410,7 @@
         <xsd:annotation>
           <xsd:documentation>
             When 'true', the timer is cancel when launch receives a 'ShutdownEvent' (send by canceling `ros2launch` or the 'shutdown' action).
-            Otherwise, the timer will keep the process alive and execute its actions regardless of cancelation (with a cancelled context).
+            Otherwise, the timer will keep the process alive and execute its actions regardless of cancellation (with a cancelled context).
             Defaults to 'true'
           </xsd:documentation>
         </xsd:annotation>
@@ -429,7 +429,7 @@
         <xsd:annotation>
           <xsd:documentation>
             When 'true', the ROS timer is cancel when launch receives a 'ShutdownEvent' (send by canceling `ros2launch` or the 'shutdown' action).
-            Otherwise, the ROS timer will keep the process alive and execute its actions regardless of cancelation (with a cancelled context).
+            Otherwise, the ROS timer will keep the process alive and execute its actions regardless of cancellation (with a cancelled context).
             Defaults to 'true'
           </xsd:documentation>
         </xsd:annotation>
