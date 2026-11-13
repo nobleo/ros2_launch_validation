@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<?xml-model href="../ros2_launch.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<!--
+  A minimal launch file plus regression cases from issues and PRs.
+-->
+<launch>
+  <node pkg="demo_nodes_cpp" exec="talker"/>
+
+  <!-- https://github.com/nobleo/ros2_launch_validation/issues/3 -->
+  <include file="robot.launch.xml">
+    <let name="robot" value="robot1"/>
+  </include>
+
+  <!-- https://github.com/nobleo/ros2_launch_validation/pull/8 -->
+  <group scoped="false" forwarding="false">
+    <keep name="robot" value="robot1"/>
+  </group>
+
+  <!-- https://github.com/nobleo/ros2_launch_validation/pull/11 -->
+  <timer period="1.0" cancel_on_shutdown="false">
+    <log message="any launch element is allowed in a timer"/>
+  </timer>
+  <ros_timer period="1.0" cancel_on_shutdown="true">
+    <log message="any launch element is allowed in a ros_timer"/>
+  </ros_timer>
+
+  <!-- https://github.com/nobleo/ros2_launch_validation/pull/12 -->
+  <shutdown reason="done" if="false"/>
+
+  <!-- https://github.com/nobleo/ros2_launch_validation/pull/13 -->
+  <executable cmd="echo \$(cat $(filename))" shell="true"/>
+
+  <!-- https://github.com/nobleo/ros2_launch_validation/pull/14 -->
+  <for_each values="{id: 1};{id: 2}">
+    <log message="item $(for-var id)"/>
+  </for_each>
+
+  <!-- https://github.com/nobleo/ros2_launch_validation/pull/15 -->
+  <executable cmd="$(command &quot;bash -c 'echo \$(shuf -i 1-100 -n 1)'&quot;)" shell="true"/>
+</launch>

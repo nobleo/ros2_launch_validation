@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<?xml-model href="../../ros2_launch.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<!-- INVALID: ROS1 $(find) substitution; ROS2 uses $(find-pkg-share) -->
+<launch>
+  <include file="$(find my_pkg)/launch/robot.launch.xml"/>
+</launch>

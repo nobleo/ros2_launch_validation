@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<?xml-model href="../../ros2_launch.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<launch>
+  <arg name="scope">
+    <choice value="scopeless"/>
+    <choice value="scoped"/>
+  </arg>
+
+  <let name="_scope" value="true" unless="$(equals $(var scope) 'scopeless')" />
+
+  <!-- INVALID: `scoped` is a launch_bool; launch does not evaluate substitutions in it -->
+  <group scoped="$(var _scope)">
+    <let name="some_value" value="NOT SCOPED"/>
+  </group>
+
+  <log message="THIS: $(var some_value 'SCOPED')"/>
+</launch>

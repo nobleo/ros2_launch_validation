@@ -1,0 +1,10 @@
+repos:
+  - repo: https://github.com/nobleo/nobleo-pre-commit
+    rev: fc8c90e28af8f91c318a92951d7cdc51e549dd7a
+    hooks:
+      - id: check-xml
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: xml-schema
+        exclude: tests/invalid
